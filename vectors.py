@@ -14,6 +14,8 @@ C = np.array([-1, -1, 0])
 D = np.array([1, -1, 0])
 P = np.array([xPos, yPos, c])
 
+weightPerLeg = np.array([0.0, 0.0, 0.0, 0.0])
+
 def calculateWeightOnLeg(xPos, yPos):
     
     P = np.array([xPos, yPos, c])
@@ -32,9 +34,8 @@ def calculateWeightOnLeg(xPos, yPos):
     
     sum_inv_dists = inv_dist_A + inv_dist_B + inv_dist_C + inv_dist_D
 
-    weight_A = helperPerLeg(inv_dist_A, sum_inv_dists)
-
-    return weight_A
+    weightPerLeg = helperPerLeg(inv_dist_A, sum_inv_dists)
+    return weightPerLeg
 
 def helperPerLeg(inv_dist, sum_inv_dists):
     weight = c * (inv_dist / sum_inv_dists)
@@ -49,8 +50,8 @@ def plotterFunction():
 
     for i, x in enumerate(xRange):
         for j, y in enumerate(yRange):
-            # print(x, y)
-            weight_A[i, j] = calculateWeightOnLeg(x, y)
+            weightPerLeg = calculateWeightOnLeg(x, y)
+            weight_A[i, j] = weightPerLeg
 
     
     X, Y = np.meshgrid(xRange, yRange)
