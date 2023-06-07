@@ -32,9 +32,13 @@ def calculateWeightOnLeg(xPos, yPos):
     
     sum_inv_dists = inv_dist_A + inv_dist_B + inv_dist_C + inv_dist_D
 
-    weight_A = c * (inv_dist_A / sum_inv_dists)
+    weight_A = helperPerLeg(inv_dist_A, sum_inv_dists)
 
     return weight_A
+
+def helperPerLeg(inv_dist, sum_inv_dists):
+    weight = c * (inv_dist / sum_inv_dists)
+    return weight
 
 def plotterFunction():
     xRange = np.linspace(-1, 1, 100)
