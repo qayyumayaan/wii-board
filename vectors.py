@@ -3,36 +3,52 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 # Define the person's weight
+xPos = 0
+yPos = 0
 c = 180
 
 # Define the vectors
-A = np.array([-1, 1])
-B = np.array([1, 1])
-C = np.array([-1, -1])
-D = np.array([1, -1])
-P = np.array([0, 0, c])
+A = np.array([-1, 1, 0])
+B = np.array([1, 1, 0])
+C = np.array([-1, -1, 0])
+D = np.array([1, -1, 0])
+P = np.array([xPos, yPos, c])
 
+def calculateWeightOnLeg(xPos, yPos):
 
+    # Calculate the distances from the person to each leg
+    dist_A = np.linalg.norm(P - A)
+    dist_B = np.linalg.norm(P - B)
+    dist_C = np.linalg.norm(P - C)
+    dist_D = np.linalg.norm(P - D)
+
+    # Calculate the inverse of these distances
+    inv_dist_A = 1 / dist_A
+    inv_dist_B = 1 / dist_B
+    inv_dist_C = 1 / dist_C
+    inv_dist_D = 1 / dist_D
+    
+    sum_inv_dists = inv_dist_A + inv_dist_B + inv_dist_C + inv_dist_D
+
+    weight_A = c * (inv_dist_A / sum_inv_dists)
+
+    return weight_A
+    # return xPos * yPos
 
 def plotterFunction():
-    x_range = np.linspace(-1, 1, 100)
-    y_range = np.linspace(-1, 1, 100)
-    weight_A = np.zeros((len(x_range), len(y_range)))
+    xRange = np.linspace(-1, 1, 100)
+    yRange = np.linspace(-1, 1, 100)
+    weight_A = np.zeros((len(xRange), len(yRange)))
+
+    # P = np.array([xRange, yRange])
+
+    for i, x in enumerate(xRange):
+        for j, y in enumerate(yRange):
+            # print(x, y)
+            weight_A[i, j] = calculateWeightOnLeg(x, y)
 
     
-    for i, x in enumerate(x_range):
-        for j, y in enumerate(y_range):
-            P = np.array([x, y])
-
-    
-    
-    
-    
-    
-    
-    
-    
-    X, Y = np.meshgrid(x_range, y_range)
+    X, Y = np.meshgrid(xRange, yRange)
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.plot_surface(X, Y, weight_A.T, cmap='coolwarm')
@@ -42,3 +58,4 @@ def plotterFunction():
     ax.set_title('Weight on Leg A')
     plt.show()
 
+plotterFunction()
