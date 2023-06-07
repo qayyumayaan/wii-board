@@ -8,10 +8,10 @@ yPos = 0
 c = 180
 
 # Define the vectors
-A = np.array([-1, 1, 0])
-B = np.array([1, 1, 0])
-C = np.array([-1, -1, 0])
-D = np.array([1, -1, 0])
+A = np.array([-1, 1, 0])    # top left
+B = np.array([1, 1, 0])     # top right
+C = np.array([-1, -1, 0])   # bottom left
+D = np.array([1, -1, 0])    # bottom right
 P = np.array([xPos, yPos, c])
 
 weightPerLeg = np.array([0.0, 0.0, 0.0, 0.0])
