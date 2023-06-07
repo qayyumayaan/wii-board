@@ -20,8 +20,6 @@ def calculateWeightOnLeg(xPos, yPos):
     
     P = np.array([xPos, yPos, c])
 
-
-    # Calculate the distances from the person to each leg
     dist_A = np.linalg.norm(P - A)
     dist_B = np.linalg.norm(P - B)
     dist_C = np.linalg.norm(P - C)
@@ -51,9 +49,9 @@ def plotterFunction():
     weight_B = np.zeros((len(xRange), len(yRange)))
     weight_C = np.zeros((len(xRange), len(yRange)))
     weight_D = np.zeros((len(xRange), len(yRange)))
+    
+    netWeight = np.zeros((len(xRange), len(yRange)))
 
-
-    # P = np.array([xRange, yRange])
 
     for i, x in enumerate(xRange):
         for j, y in enumerate(yRange):
@@ -62,13 +60,17 @@ def plotterFunction():
             weight_B[i, j] = weightPerLeg[1]
             weight_C[i, j] = weightPerLeg[2]
             weight_D[i, j] = weightPerLeg[3]
-
-
-    
+            netWeight[i, j] = weight_A[i, j] + weight_B[i, j] + weight_C[i, j] + weight_D[i, j]
+  
     X, Y = np.meshgrid(xRange, yRange)
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.plot_surface(X, Y, weight_A.T, cmap='coolwarm')
+    # ax.plot_surface(X, Y, weight_B.T, cmap='coolwarm')
+    # ax.plot_surface(X, Y, weight_C.T, cmap='coolwarm')
+    ax.plot_surface(X, Y, weight_D.T, cmap='coolwarm')
+    # ax.plot_surface(X, Y, netWeight.T, cmap='coolwarm')
+
     ax.set_xlabel('x')
     ax.set_ylabel('y')
     ax.set_zlabel('Weight on Leg A')
