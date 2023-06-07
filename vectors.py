@@ -7,11 +7,15 @@ xPos = 0
 yPos = 0
 c = 180
 
+width = 1
+height = 1
+points = 100
+
 # Define the vectors
-A = np.array([-1, 1, 0])    # top left
-B = np.array([1, 1, 0])     # top right
-C = np.array([-1, -1, 0])   # bottom left
-D = np.array([1, -1, 0])    # bottom right
+A = np.array([-width, height, 0])    # top left
+B = np.array([width, height, 0])     # top right
+C = np.array([-width, -height, 0])   # bottom left
+D = np.array([width, -height, 0])    # bottom right
 P = np.array([xPos, yPos, c])
 
 weightPerLeg = np.array([0.0, 0.0, 0.0, 0.0])
@@ -43,8 +47,8 @@ def helperPerLeg(inv_dist, sum_inv_dists):
     return weight
 
 def plotterFunction():
-    xRange = np.linspace(-1, 1, 100)
-    yRange = np.linspace(-1, 1, 100)
+    xRange = np.linspace(-width, width, points)
+    yRange = np.linspace(-height, height, points)
     weight_A = np.zeros((len(xRange), len(yRange)))
     weight_B = np.zeros((len(xRange), len(yRange)))
     weight_C = np.zeros((len(xRange), len(yRange)))
