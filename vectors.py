@@ -16,10 +16,6 @@ P = np.array([xPos, yPos, c])
 
 def calculateWeightOnLeg(xPos, yPos):
     
-    A = np.array([-1, 1, 0])
-    B = np.array([1, 1, 0])
-    C = np.array([-1, -1, 0])
-    D = np.array([1, -1, 0])
     P = np.array([xPos, yPos, c])
 
     # Calculate the distances from the person to each leg
