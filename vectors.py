@@ -36,7 +36,8 @@ def calculateWeightOnLeg(xPos, yPos):
         inverseDistances[i] = inverse 
         sum_inv_dists += inverse     
     
-    weightPerLeg = helperPerLeg(inverseDistances[0], sum_inv_dists)
+    for i in range (len(distances)):
+        weightPerLeg[i] = helperPerLeg(inverseDistances[i], sum_inv_dists)
     return weightPerLeg
 
 def helperPerLeg(inv_dist, sum_inv_dists):
@@ -47,13 +48,21 @@ def plotterFunction():
     xRange = np.linspace(-1, 1, 100)
     yRange = np.linspace(-1, 1, 100)
     weight_A = np.zeros((len(xRange), len(yRange)))
+    weight_B = np.zeros((len(xRange), len(yRange)))
+    weight_C = np.zeros((len(xRange), len(yRange)))
+    weight_D = np.zeros((len(xRange), len(yRange)))
+
 
     # P = np.array([xRange, yRange])
 
     for i, x in enumerate(xRange):
         for j, y in enumerate(yRange):
             weightPerLeg = calculateWeightOnLeg(x, y)
-            weight_A[i, j] = weightPerLeg
+            weight_A[i, j] = weightPerLeg[0]
+            weight_B[i, j] = weightPerLeg[1]
+            weight_C[i, j] = weightPerLeg[2]
+            weight_D[i, j] = weightPerLeg[3]
+
 
     
     X, Y = np.meshgrid(xRange, yRange)
