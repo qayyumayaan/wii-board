@@ -46,9 +46,7 @@ def helperPerLeg(inv_dist, sum_inv_dists):
     weight = c * (inv_dist / sum_inv_dists)
     return weight
 
-def plotterFunction():
-    xRange = np.linspace(-width, width, points)
-    yRange = np.linspace(-height, height, points)
+def weightArrayMaker(xRange, yRange):
     weight_A = np.zeros((len(xRange), len(yRange)))
     weight_B = np.zeros((len(xRange), len(yRange)))
     weight_C = np.zeros((len(xRange), len(yRange)))
@@ -65,13 +63,19 @@ def plotterFunction():
             weight_C[i, j] = weightPerLeg[2]
             weight_D[i, j] = weightPerLeg[3]
             netWeight[i, j] = weight_A[i, j] + weight_B[i, j] + weight_C[i, j] + weight_D[i, j]
+    return weight_A, weight_B, weight_C, weight_D
+
+def plotterFunction():
+    xRange = np.linspace(-width, width, points)
+    yRange = np.linspace(-height, height, points)
+    weight_A, weight_B, weight_C, weight_D = weightArrayMaker(xRange, yRange)
   
     X, Y = np.meshgrid(xRange, yRange)
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.plot_surface(X, Y, weight_A.T, cmap='coolwarm')
-    # ax.plot_surface(X, Y, weight_B.T, cmap='coolwarm')
-    # ax.plot_surface(X, Y, weight_C.T, cmap='coolwarm')
+    ax.plot_surface(X, Y, weight_B.T, cmap='coolwarm')
+    ax.plot_surface(X, Y, weight_C.T, cmap='coolwarm')
     ax.plot_surface(X, Y, weight_D.T, cmap='coolwarm')
     # ax.plot_surface(X, Y, netWeight.T, cmap='coolwarm')
 
