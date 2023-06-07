@@ -20,21 +20,23 @@ def calculateWeightOnLeg(xPos, yPos):
     
     P = np.array([xPos, yPos, c])
 
+
     # Calculate the distances from the person to each leg
     dist_A = np.linalg.norm(P - A)
     dist_B = np.linalg.norm(P - B)
     dist_C = np.linalg.norm(P - C)
     dist_D = np.linalg.norm(P - D)
-
-    # Calculate the inverse of these distances
-    inv_dist_A = 1 / dist_A
-    inv_dist_B = 1 / dist_B
-    inv_dist_C = 1 / dist_C
-    inv_dist_D = 1 / dist_D
     
-    sum_inv_dists = inv_dist_A + inv_dist_B + inv_dist_C + inv_dist_D
-
-    weightPerLeg = helperPerLeg(inv_dist_A, sum_inv_dists)
+    distances = np.array([dist_A, dist_B, dist_C, dist_D])
+    inverseDistances = np.array([0.0, 0.0, 0.0, 0.0])
+    
+    sum_inv_dists = 0
+    for i in range (len(distances)):
+        inverse = 1 / distances[i]
+        inverseDistances[i] = inverse 
+        sum_inv_dists += inverse     
+    
+    weightPerLeg = helperPerLeg(inverseDistances[0], sum_inv_dists)
     return weightPerLeg
 
 def helperPerLeg(inv_dist, sum_inv_dists):
